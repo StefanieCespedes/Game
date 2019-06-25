@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 let frames = 0;
 let interval;
 const obstacles = [];
+const questions = [];
 canvas.width = 800;
 canvas.height = 500;
 
@@ -31,40 +32,14 @@ class Player {
     ctx.drawImage(img, this.x, this.y, this.width, this.height);
   }
 
-  // drawPlayer() {
-  //   ctx.fillStyle = '#FFA8A3';
-  //   ctx.fillRect(this.x, this.y, this.width, this.height);
-  // }
-
-  // update() {
-  //   ctx.fillStyle = this.color;
-  //   ctx.fillRect(this.x, this.y, this.width, this.height);
-  // }
-
   newPos() {
     this.x += this.speedX;
     this.y += this.speedY;
   }
 
-  top() {
-    return this.y;
-  }
-
-  right() {
-    return this.x + this.width;
-  }
-
-  left() {
-    return this.x;
-  }
-
-  bottom() {
-    return this.y + this.height;
-  }
-
   crash(bug) {
     if (this.x + this.width > bug.x && this.x < bug.x + bug.width && this.y < bug.y + bug.height && this.y + this.height > bug.y) {
-    clearInterval(interval);
+      clearInterval(interval);
     }
   }
 }
@@ -87,6 +62,21 @@ function gameTime() {
 
 gameTime();
 
+function updateGame() {
+  clear();
+  devGirl.newPos();
+  createObstacle();
+  createQuestion();
+  obstacles.forEach((obst) => {
+    obst.drawObstacle();
+    devGirl.crash(obst);
+  });
+  questions.forEach((questions) => {
+    questions.questionMark();
+  })
+  checkGameOver();
+}
+
 function checkGameOver() {
   let crashed = obstacles.some(function (obstacles) {
     return devGirl.crash(obstacles);
@@ -95,20 +85,6 @@ function checkGameOver() {
   if (crashed) {
     clearInterval(interval);
   }
-}
-
-function updateGame() {
-  clear();
-  // devGirl.update();
-  devGirl.newPos();
-  createObstacle();
-  obstacles.forEach((obst) => {
-    obst.drawObstacle();
-    devGirl.crash(obst);
-  });
-  checkGameOver();
-  // obstacles.map(obst => obst.questionMark())
-  // obstacles.speedUp();
 }
 
 document.onkeydown = function (e) {
@@ -159,11 +135,11 @@ class Obstacle {
     ctx.drawImage(img, this.x, this.y, this.width, this.height);
   }
 
-  // questionMark() {
-  //   let img = new Image();
-  //   img.src = './images/questionmark.png';
-  //   ctx.drawImage(img, this.x, this.y, 50, 50)
-  // }
+  questionMark() {
+    let questionImg = new Image();
+    questionImg.src = './images/questionmark.png';
+    ctx.drawImage(questionImg, this.x, this.y, 120, 100)
+  }
 
   updateObstacle() {
     this.x -= 4;
@@ -184,6 +160,20 @@ function createObstacle() {
   })
 }
 
-    // let maxSize = 200;
-    // let minSize = 20;
+function createQuestion() {
+  if (frames % 500 === 0) {
+    const maxPositionY = 400;
+    const minPositionY = 100;
+    questions.push(new Obstacle(850, Math.floor(Math.random() * (maxPositionY - minPositionY)) + minPositionY));
+  }
+  questions.forEach((quest, i) => {
+    quest.updateObstacle();
+    if (quest.x < 0) {
+      questions.splice(i, 1);
+    }
+  });
+}
+
+// let maxSize = 200;
+// let minSize = 20;
 // Math.floor(Math.random() * (maxSize - minSize)) + minSize)

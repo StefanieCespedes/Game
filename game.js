@@ -5,7 +5,7 @@ let frames = 0;
 let interval;
 const obstacles = [];
 const questions = [];
-canvas.width = 800;
+canvas.width = 700;
 canvas.height = 500;
 
 function drawBackground() {
@@ -39,7 +39,7 @@ class Player {
 
   crash(bug) {
     if (this.x + this.width > bug.x && this.x < bug.x + bug.width && this.y < bug.y + bug.height && this.y + this.height > bug.y) {
-      clearInterval(interval);
+      return true;
     }
   }
 }
@@ -69,11 +69,11 @@ function updateGame() {
   createQuestion();
   obstacles.forEach((obst) => {
     obst.drawObstacle();
-    devGirl.crash(obst);
   });
   questions.forEach((questions) => {
     questions.questionMark();
   })
+  quiz();
   checkGameOver();
 }
 
@@ -85,21 +85,32 @@ function checkGameOver() {
   if (crashed) {
     clearInterval(interval);
   }
+} 
+
+function quiz() {
+  let questionTime = questions.some(function (questions) {
+    return devGirl.crash(questions);
+  });
+  
+  if (questionTime) {
+    ask(questionsArr);
+    clearInterval(interval);
+  }
 }
 
 document.onkeydown = function (e) {
   switch (e.keyCode) {
     case 38: // up arrow
-      devGirl.speedY = -2;
+      devGirl.speedY = -3;
       break;
     case 40: // down arrow
-      devGirl.speedY = 2;
+      devGirl.speedY = 3;
       break;
     case 37: // left arrow
-      devGirl.speedX = -2;
+      devGirl.speedX = -3;
       break;
     case 39: // right arrow
-      devGirl.speedX = 2;
+      devGirl.speedX = 3;
       break;
   }
 };
@@ -127,15 +138,18 @@ class Obstacle {
     this.y = y;
     this.width = 60;
     this.height = 50;
+    this.name = name;
   }
 
   drawObstacle() {
+    this.name = 'iAmABug';
     let img = new Image();
     img.src = './images/bug-coding.png';
     ctx.drawImage(img, this.x, this.y, this.width, this.height);
   }
 
   questionMark() {
+    this.name = 'iAmAQuestion'
     let questionImg = new Image();
     questionImg.src = './images/questionmark.png';
     ctx.drawImage(questionImg, this.x, this.y, 120, 100)
@@ -161,7 +175,7 @@ function createObstacle() {
 }
 
 function createQuestion() {
-  if (frames % 500 === 0) {
+  if (frames % 600 === 0) {
     const maxPositionY = 400;
     const minPositionY = 100;
     questions.push(new Obstacle(850, Math.floor(Math.random() * (maxPositionY - minPositionY)) + minPositionY));

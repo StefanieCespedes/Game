@@ -8,6 +8,11 @@ const questions = [];
 canvas.width = 700;
 canvas.height = 500;
 
+// SCORE
+// GAMEOVER 
+// BOTAO DE INICIO
+// APRESENTACAO PERGUNTAS
+
 function drawBackground() {
   ctx.beginPath();
   ctx.fillStyle = '#FAF146';
@@ -48,9 +53,10 @@ const devGirl = new Player(0, 225, 50, 50);
 devGirl.icon();
 
 function clear() {
-  ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  // ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   drawBackground();
   devGirl.icon();
+  lifes();
 }
 
 function gameTime() {
@@ -58,6 +64,12 @@ function gameTime() {
     updateGame();
     frames += 1;
   }, 15);
+}
+
+function rightAnswerInterval () {
+  gameTime();
+  getTheDiv.innerHTML = '';
+  // new Obstacles.x = 10;
 }
 
 gameTime();
@@ -72,8 +84,12 @@ function updateGame() {
   });
   questions.forEach((questions) => {
     questions.questionMark();
-  })
-  quiz();
+    if (devGirl.crash(questions) && canCrash) {
+      canCrash = false;
+      ask(questionsArr);
+      clearInterval(interval);
+    }
+  });
   checkGameOver();
 }
 
@@ -87,30 +103,27 @@ function checkGameOver() {
   }
 } 
 
-function quiz() {
-  let questionTime = questions.some(function (questions) {
-    return devGirl.crash(questions);
-  });
-  
-  if (questionTime) {
-    ask(questionsArr);
-    clearInterval(interval);
-  }
+function lifes() {
+  let img = new Image();
+  img.src = './images/life.png';
+  ctx.drawImage(img, 20, 20, 30, 30);
+  ctx.drawImage(img, 50, 20, 30, 30);
+  ctx.drawImage(img, 80, 20, 30, 30);
 }
 
 document.onkeydown = function (e) {
   switch (e.keyCode) {
     case 38: // up arrow
-      devGirl.speedY = -3;
+      devGirl.speedY = -4;
       break;
     case 40: // down arrow
-      devGirl.speedY = 3;
+      devGirl.speedY = 4;
       break;
     case 37: // left arrow
-      devGirl.speedX = -3;
+      devGirl.speedX = -4;
       break;
     case 39: // right arrow
-      devGirl.speedX = 3;
+      devGirl.speedX = 4;
       break;
   }
 };
@@ -161,7 +174,7 @@ class Obstacle {
 }
 
 function createObstacle() {
-  if (frames % 180 === 0) {
+  if (frames % 40 === 0) {
     const maxPositionY = 400;
     const minPositionY = 100;
     obstacles.push(new Obstacle(850, Math.floor(Math.random() * (maxPositionY - minPositionY)) + minPositionY));
@@ -175,7 +188,7 @@ function createObstacle() {
 }
 
 function createQuestion() {
-  if (frames % 600 === 0) {
+  if (frames % 300 === 0) {
     const maxPositionY = 400;
     const minPositionY = 100;
     questions.push(new Obstacle(850, Math.floor(Math.random() * (maxPositionY - minPositionY)) + minPositionY));

@@ -4,6 +4,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let frames = 0;
 let interval;
+let img;
 const obstacles = [];
 const questions = [];
 canvas.width = 800;
@@ -31,6 +32,7 @@ class Player {
     this.speedX = 0;
     this.speedY = 0;
     this.score = 0;
+    this.lives = 3;
   }
 
   icon() {
@@ -91,28 +93,23 @@ function updateScore() {
   ctx.fillText("Score: " + devGirl.score, 700, 30);
 }
 
-// let n = 3;
-// lifes();
-
 function clear() {
   ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   drawBackground();
   devGirl.icon();
-  lifes();
 }
 
 // game engine
 function updateGame () {
   clear();
+  lives(); 
   devGirl.newPos();
   createObstacle();
   createQuestion();
   updateScore();
-
   obstacles.forEach((obst) => {
     obst.drawObstacle();
   });
-
   questions.forEach((questions) => {
     questions.questionMark();
     if (devGirl.crash(questions) && canCrash) {
@@ -121,7 +118,6 @@ function updateGame () {
       clearInterval(interval);
     }
   });
-
   checkGameOver();
 }
 
@@ -132,41 +128,43 @@ function checkGameOver() {
   });
 
   if (crashed) {
-    // lifes(n - 1);
+    // devGirl.lives -= 1;
     clearInterval(interval);
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, 800, 600)
     ctx.font = '20px serif';
     ctx.fillStyle = 'gold';
-    ctx.fillText('Game Over');
+    ctx.fillText('Game Over', 200, 400);
   }
-} 
+}
 
-function lifes() {
-//   if (n === 3) {
-  let img = new Image();
-  img.src = './images/life2.png';
-  ctx.drawImage(img, 20, 20, 30, 30);
-  ctx.drawImage(img, 50, 20, 30, 30);
-  ctx.drawImage(img, 80, 20, 30, 30);
-//   } else if (n === 2) {
-//     let img = new Image();
-//     img.src = './images/life2.png';
-//     ctx.drawImage(img, 20, 20, 30, 30);
-//     ctx.drawImage(img, 50, 20, 30, 30);
-//     n -1;
-//   } else if (n === 1) {
-//     let img = new Image();
-//     img.src = './images/life2.png';
-//     ctx.drawImage(img, 20, 20, 30, 30);
-//   } else if (n === 0) {
-    // clearInterval(interval);
-//     ctx.fillStyle = 'black';
-//     ctx.fillRect(0, 0, 800, 600)
-//     ctx.font = '20px serif';
-//     ctx.fillStyle = 'gold';
-//     ctx.fillText('Game Over');
-//   }
+function lives() {
+  if (devGirl.lives === 3) {
+    img = new Image();
+    img.src = './images/life2.png';
+    ctx.drawImage(img, 20, 20, 30, 30);
+    ctx.drawImage(img, 50, 20, 30, 30);
+    ctx.drawImage(img, 80, 20, 30, 30);
+  }
+  if (devGirl.lives === 2) {
+    img = new Image();
+    img.src = './images/life2.png';
+    ctx.drawImage(img, 20, 20, 30, 30);
+    ctx.drawImage(img, 50, 20, 30, 30);
+  }
+  if (devGirl.lives === 1) {
+    img = new Image();
+    img.src = './images/life2.png';
+    ctx.drawImage(img, 20, 20, 30, 30);
+  }
+  if (devGirl.lives === 0) {
+    clearInterval(interval);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, 800, 600)
+    ctx.font = '20px serif';
+    ctx.fillStyle = 'gold';
+    ctx.fillText('Game Over', 200, 400);
+  }
 }
 
 document.onkeydown = function (e) {

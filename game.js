@@ -5,14 +5,26 @@ const ctx = canvas.getContext('2d');
 let frames = 0;
 let interval;
 let img;
+let music;
 const obstacles = [];
 const questions = [];
 canvas.width = 800;
 canvas.height = 600;
 
-// GAMEOVER 
-// BOTAO DE INICIO
-// APRESENTACAO PERGUNTAS
+function sound(src) {
+  this.sound = document.createElement('audio');
+  this.sound.src = src;
+  this.sound.setAttribute('preload', 'auto');
+  this.sound.setAttribute('controls', 'none');
+  this.sound.style.display = 'none';
+  document.body.appendChild(this.sound);
+  this.play = function () {
+    this.sound.play();
+  };
+  this.stop = function () {
+    this.sound.pause();
+  };
+}
 
 // prints the background image on canvas
 function drawBackground() {
@@ -58,11 +70,13 @@ const devGirl = new Player(0, 225, 80, 80);
 devGirl.icon();
 
 let buttonState = true;
+music = new sound('./audio/Coruscate_-_Korobeiniki_Ditto.mp3');
 
 function button() {
   gameTime();
   // buttonState = !buttonState;
   if (buttonState) {
+    music.play();
     gameStart.innerHTML = '';
     buttonState = !buttonState;
   }
@@ -78,7 +92,7 @@ function gameTime() {
 }
 
 // calls the interval when the right answer is clicked
-function rightAnswerInterval () {
+function rightAnswerInterval() {
   gameTime();
   getTheDiv.innerHTML = '';
 }
@@ -90,7 +104,7 @@ function updateScore() {
   }
   ctx.font = '18px serif';
   ctx.fillStyle = 'white';
-  ctx.fillText("Score: " + devGirl.score, 700, 30);
+  ctx.fillText('Score: ' + devGirl.score, 700, 30);
 }
 
 function clear() {
@@ -100,9 +114,9 @@ function clear() {
 }
 
 // game engine
-function updateGame () {
+function updateGame() {
   clear();
-  lives(); 
+  lives();
   devGirl.newPos();
   createObstacle();
   createQuestion();
@@ -128,13 +142,13 @@ function checkGameOver() {
   });
 
   if (crashed) {
-    // devGirl.lives -= 1;
     clearInterval(interval);
     ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, 800, 600)
-    ctx.font = '20px serif';
-    ctx.fillStyle = 'gold';
-    ctx.fillText('Game Over', 200, 400);
+    ctx.fillRect(0, 0, 800, 600);
+    img = new Image();
+    img.src = './images/GAME-OVER.png';
+    img.onload = () => ctx.drawImage(img, 250, 200, 300, 170);
+    music.stop();
   }
 }
 
@@ -160,10 +174,15 @@ function lives() {
   if (devGirl.lives === 0) {
     clearInterval(interval);
     ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, 800, 600)
-    ctx.font = '20px serif';
-    ctx.fillStyle = 'gold';
-    ctx.fillText('Game Over', 200, 400);
+    ctx.fillRect(0, 0, 800, 600);
+    img = new Image();
+    img.src = './images/GAME-OVER.png';
+    ctx.drawImage(img, 350, 300, 200, 200);
+
+    // ctx.fillRect(0, 0, 800, 600)
+    // ctx.font = '20px serif';
+    // ctx.fillStyle = 'gold';
+    // ctx.fillText('Game Over', 200, 400);
   }
 }
 
@@ -218,10 +237,10 @@ class Obstacle {
   }
 
   questionMark() {
-    this.name = 'iAmAQuestion'
+    this.name = 'iAmAQuestion';
     let questionImg = new Image();
     questionImg.src = './images/questionmark.png';
-    ctx.drawImage(questionImg, this.x, this.y, 120, 100)
+    ctx.drawImage(questionImg, this.x, this.y, 120, 100);
   }
 
   updateObstacle() {
@@ -241,7 +260,7 @@ function createObstacle() {
     if (obst.x < 0) {
       obstacles.splice(i, 1);
     }
-  })
+  });
 }
 
 // generates questions in random positions and takes it out of the array

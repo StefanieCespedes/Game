@@ -1,8 +1,175 @@
 
-body {
+/* @import url('https://fonts.googleapis.com/css?family=B612+Mono&display=swap'); */
+@import url('https://fonts.googleapis.com/css?family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
 
+* {
+    font-family: 'Slabo 27px', serif;
+    font-size: 20px;
+    margin: 20;
 }
 
 #design {
     float: right;
 }
+
+#questions {
+
+}
+
+#makeItPop {
+    background-color: #FAF146;
+    border-width: 10px;
+    border-radius: 2px;
+    border-style: double;
+    border-color: white;
+    padding: 80px 40px 80px 40px;
+    margin-top: 70px;
+    margin-right: 60px
+}
+/* 
+#startIt {
+    border: 5px;
+    background-color: blue;
+    width: 100px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px 40px 20px;
+    margin-top: 200px;
+    padding-bottom: 88px;
+    padding-right: 100px;
+    padding-left: 100px;
+} */
+
+#textStyle {
+    font-family: 'Questrial', sans-serif;
+    font-size: 40px;
+    color: #E85E56;
+    padding-left: 200px;
+    margin-top: 100px;
+}
+
+#startIt {
+    margin: 200px
+}
+
+#startIt {
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  #startIt:after {
+    content: "";
+    background: #90EE90;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  #startIt:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
+
+#answerButton {
+    position: relative;
+    background-color: #4CAF50;
+    border: none;
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  #answerButton:after {
+    content: "";
+    background: #90EE90;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+  }
+  
+  #answerButton:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
+
+/* #answerButton {
+    padding: 30px 20px 30px 20px
+    font-size: 14px;
+} */
+/* 
+.lightning { animation-name: lightning }
+@keyframes lightning {
+    from, 50%, to { opacity: 1 }
+    25%, 75% { opacity: 0 }
+} */
+
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.bigDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  } */
+
+/* .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+} */
+
+/* #FAF146 */

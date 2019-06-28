@@ -42,14 +42,14 @@ let questionsArr = [
   //   answer3: 'change',
   //   rightAnswer: 'replace',
   // },
-  { question: `After these two statements execute, what is the value of x?
-		let x = "abc";
-		let y = x.replace("a", "z");`,
-  	answer1: 'zbc',
-  	answer2: 'az',
-  	answer3: 'abc',
-  	rightAnswer: 'abc',
-  },
+  // { question: `After these two statements execute, what is the value of x?
+	// 	let x = "abc";
+	// 	let y = x.replace("a", "z");`,
+  // 	answer1: 'zbc',
+  // 	answer2: 'az',
+  // 	answer3: 'abc',
+  // 	rightAnswer: 'abc',
+  // },
   // { question: 'What is the keyword for detecting that the user is hovering over an element?',
   //   answer1: 'onClick',
   //   answer2: 'onMouseover',

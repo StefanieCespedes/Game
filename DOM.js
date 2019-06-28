@@ -1,28 +1,34 @@
 
 let questionsArr = [
-  { question: 'Which keyword removes the first element of an array?',
-    answer1: 'unshift',
-    answer2: 'shift',
-    answer3: 'push',
-    rightAnswer: 'shift',
-  },
-  { question: 'What do you call a value that is attached to an object?',
-    answer1: 'parameter',
-    answer2: 'variable',
-    answer3: 'property',
-    rightAnswer: 'property',
-  },
-  { question: 'What is the keyword for converting "1.5" to 1?',
-    answer1: 'parseInt',
-    answer2: 'parseFloat',
-    answer3: 'Math',
-    rightAnswer: 'parseInt',
-  },
-  { question: `What is the value of num? let num = parseInt('5.6');`,
-    answer1: '6',
-    answer2: '5',
-    answer3: '5.5',
-    rightAnswer: '5',
+  // { question: 'Which keyword removes the first element of an array?',
+  //   answer1: 'unshift',
+  //   answer2: 'shift',
+  //   answer3: 'push',
+  //   rightAnswer: 'shift',
+  // },
+  // { question: 'What do you call a value that is attached to an object?',
+  //   answer1: 'parameter',
+  //   answer2: 'variable',
+  //   answer3: 'property',
+  //   rightAnswer: 'property',
+  // },
+  // { question: 'What is the keyword for converting "1.5" to 1?',
+  //   answer1: 'parseInt',
+  //   answer2: 'parseFloat',
+  //   answer3: 'Math',
+  //   rightAnswer: 'parseInt',
+  // },
+  // { question: `What is the value of num? let num = parseInt('5.6');`,
+  //   answer1: '6',
+  //   answer2: '5',
+  //   answer3: '5.5',
+  //   rightAnswer: '5',
+  // },
+  { question: 'Global and local variables differ in their',
+    answer1: 'scope',
+    answer2: 'relevance',
+    answer3: 'size',
+    rightAnswer: 'scope',
   },
   { question: 'A function that creates objects and their properties is known as a',
     answer1: 'Class',
@@ -30,32 +36,26 @@ let questionsArr = [
     answer3: 'Method',
     rightAnswer: 'Constructor',
   },
-  { question: 'Global and local variables differ in their',
-    answer1: 'scope',
-    answer2: 'relevance',
-    answer3: 'size',
-    rightAnswer: 'scope',
-  },
-  { question: 'What is the keyword for removing one set of characters and inserting another set in its place?',
-    answer1: 'charAt() = ',
-    answer2: 'replace',
-    answer3: 'change',
-    rightAnswer: 'replace',
-  },
+  // { question: 'What is the keyword for removing one set of characters and inserting another set in its place?',
+  //   answer1: 'charAt() = ',
+  //   answer2: 'replace',
+  //   answer3: 'change',
+  //   rightAnswer: 'replace',
+  // },
   { question: `After these two statements execute, what is the value of x?
-		var x = "abc";
-		var y = x.replace("a", "z");`,
-  answer1: 'zbc',
-  answer2: 'az',
-  answer3: 'abc',
-  rightAnswer: 'abc',
+		let x = "abc";
+		let y = x.replace("a", "z");`,
+  	answer1: 'zbc',
+  	answer2: 'az',
+  	answer3: 'abc',
+  	rightAnswer: 'abc',
   },
-  { question: 'What is the keyword for detecting that the user is hovering over an element?',
-    answer1: 'onClick',
-    answer2: 'onMouseover',
-    answer3: 'hover',
-    rightAnswer: 'onMouseover',
-  },
+  // { question: 'What is the keyword for detecting that the user is hovering over an element?',
+  //   answer1: 'onClick',
+  //   answer2: 'onMouseover',
+  //   answer3: 'hover',
+  //   rightAnswer: 'onMouseover',
+  // },
   { question: 'If a function has 3 parameters, how many values can be returned to the calling code?',
     answer1: '1',
     answer2: '3',
@@ -98,7 +98,7 @@ function ask (arr) {
 
   const theInput = document.createElement('input');
   theInput.setAttribute('id', 'answer1');
-  theInput.setAttribute('type', 'radio');
+  theInput.setAttribute('type', 'checkbox');
   theInput.setAttribute('value', answer1);
   theInput.setAttribute('name', 'answer');
   theInput.setAttribute('class', 'styleTheBox');
@@ -113,7 +113,7 @@ function ask (arr) {
 
   const theInput2 = document.createElement('input');
   theInput2.setAttribute('id', 'answer2');
-  theInput2.setAttribute('type', 'radio');
+  theInput2.setAttribute('type', 'checkbox');
   theInput2.setAttribute('name', 'answer');
   theInput2.setAttribute('value', answer2);
   theInput2.setAttribute('class', 'styleTheBox');
@@ -127,7 +127,7 @@ function ask (arr) {
 
   const theInput3 = document.createElement('input');
   theInput3.setAttribute('id', 'answer3');
-  theInput3.setAttribute('type', 'radio');
+  theInput3.setAttribute('type', 'checkbox');
   theInput3.setAttribute('name', 'answer');
   theInput3.setAttribute('value', answer3);
   theInput3.setAttribute('class', 'styleTheBox');
@@ -172,14 +172,14 @@ function getInfo() {
       canCrash = true;
     }, 1000);
   }
-  if (count === 10) {
+  if (count === 4) {
     ctx.clearRect(0, 0, 800, 600);
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, 800, 600);
-		img = new Image();
-		img.src = './images/Congratulations.png';
-		img.onload = () => ctx.drawImage(img, 230, 220, 350, 170);
-		music.stop();
+    img = new Image();
+    img.src = './images/Congratulations.png';
+    img.onload = () => ctx.drawImage(img, 230, 220, 350, 170);
+    music.stop();
     clearInterval(interval);
   }
 }
@@ -191,17 +191,9 @@ function startGame() {
   gamePicture = document.createElement('img');
   gamePicture.setAttribute('src', './images/JS-TRIVIA (1).png');
   gameStart.appendChild(gamePicture);
-  // let gameName = document.createElement('h1');
-  // let gameNameText = document.createTextNode('JS TRIVIA')
-  // gameStart.appendChild(gameName);
-  // gameName.setAttribute('id', 'textStyle');
-  // gameName.appendChild(gameNameText)
   startButton = document.createElement('button');
   startButton.setAttribute('id', 'startIt');
   startButton.setAttribute('onclick', 'button()');
-  // let textDiv = document.createElement('div');
-  // textDiv.setAttribute('class', 'lightning');
-  // gameStart.appendChild(textDiv);
   let gameStartText = document.createTextNode('Start game!');
   startButton.appendChild(gameStartText);
   gameStart.appendChild(startButton);

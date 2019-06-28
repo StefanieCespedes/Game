@@ -178,11 +178,6 @@ function lives() {
     img = new Image();
     img.src = './images/GAME-OVER.png';
     ctx.drawImage(img, 350, 300, 200, 200);
-
-    // ctx.fillRect(0, 0, 800, 600)
-    // ctx.font = '20px serif';
-    // ctx.fillStyle = 'gold';
-    // ctx.fillText('Game Over', 200, 400);
   }
 }
 
@@ -277,8 +272,3 @@ function createQuestion() {
     }
   });
 }
-
-
-// let maxSize = 200;
-// let minSize = 20;
-// Math.floor(Math.random() * (maxSize - minSize)) + minSize)
